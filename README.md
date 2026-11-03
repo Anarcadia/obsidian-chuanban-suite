@@ -1,4 +1,4 @@
-# chuanban Private Full Suite (船板本地专享与好友完整分享版)
+# chuanban Obsidian theme Full Suite (船板书卷Claudish风Obsidian皮肤 带插件和字体的完整分享版)
 
 > 👉 **如果你不懂技术或不想手动折腾配置**：请直接打开同目录下的 **[《【必读】给AI助手看的零门槛一键安装引导（AGENT_INSTALL_GUIDE）.md》](【必读】给AI助手看的零门槛一键安装引导（AGENT_INSTALL_GUIDE）.md)**，把里面的一句话口诀复制发给你的 AI 助手（Claude Code / Cursor / Windsurf / Antigravity / Hana / Kimi），AI 会通过内置的 [`install_auto.py`](install_auto.py) 自动为你从 Google Drive 字体共享库拉取字体、配置好全部皮肤和插件！
 
