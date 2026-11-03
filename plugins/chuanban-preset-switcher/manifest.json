@@ -1,0 +1,10 @@
+{
+  "id": "chuanban-preset-switcher",
+  "name": "排版预设切换器 (Chuanban Preset Switcher)",
+  "version": "1.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "专为船板定制的一键排版预设切换器：在 Anti更纱打字机体 与 Notion Desktop衬线宋体 之间秒级一键切换（支持左侧边栏图标与快捷键命令）。",
+  "author": "船板 & Antigravity",
+  "authorUrl": "",
+  "isDesktopOnly": false
+}

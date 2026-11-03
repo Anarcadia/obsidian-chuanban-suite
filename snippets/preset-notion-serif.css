@@ -1,0 +1,148 @@
+/* ==============================================================================
+   Preset: Notion Desktop Serif Typography (Notion 衬线宋体排版预设)
+   Author: chuanban (https://github.com/Anarcadia)
+   Version: 1.0.0
+   Description:
+     - 西文/数字：Chuanban Western Sans (严格拉丁/数字 Unicode 隔离，优先 Anthropic Sans / SF Pro Text)
+     - 中文字体：苹果原生 Songti SC (宋体-简) 全角方块网格排布
+     - 排版特性：
+       * 开启 font-variant-east-asian: full-width 与 halt/chws 归零，消除标点挤压与不均断裂
+       * 开启 font-variant-numeric: tabular-nums，数字等宽对齐
+       * 保持 1.68 行高与 0.82em / 1.05em 舒展段落留白
+   ============================================================================== */
+
+@font-face {
+  font-family: 'Anthropic Sans';
+  src: local('Anthropic Sans Web Text'), local('Anthropic Sans Web Text Regular'), local('AnthropicSansWebVariable-TextRegular'), local('Anthropic Sans Web'), local('Anthropic Sans');
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Anthropic Sans';
+  src: local('Anthropic Sans Bold'), local('Anthropic Sans Web Bold'), local('Anthropic Sans Web Text'), local('AnthropicSansWebVariable-TextRegular');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Chuanban Western Sans';
+  src: local('Anthropic Sans Web Text'), local('Anthropic Sans Web Text Regular'), local('AnthropicSansWebVariable-TextRegular'), local('Anthropic Sans Web'), local('Anthropic Sans'), local('SF Pro Text'), local('.AppleSystemUIFont'), local('Inter'), local('Helvetica Neue'), local('Arial');
+  unicode-range: U+0000-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F;
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Chuanban Western Sans';
+  src: local('Anthropic Sans Bold'), local('Anthropic Sans Web Bold'), local('Anthropic Sans Web Text'), local('AnthropicSansWebVariable-TextRegular'), local('SF Pro Text Bold'), local('Inter Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+  unicode-range: U+0000-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F;
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  --ag-font-notion-serif: 'Chuanban Western Sans', 'Anthropic Sans', 'Anthropic Sans Web', 'Songti SC', 'Songti TC', 'STSong', serif;
+  --font-text-theme: var(--ag-font-notion-serif);
+  --font-text: var(--font-text-override, var(--font-text-theme));
+  --line-height-normal: 1.68;
+  --p-spacing: 1.05em;
+}
+
+/* 核心阅读与编辑正文 */
+.markdown-rendered,
+.markdown-source-view.mod-cm6 .cm-content,
+.markdown-source-view.mod-cm6 .cm-line {
+  font-family: var(--ag-font-notion-serif) !important;
+  line-height: var(--line-height-normal) !important;
+  letter-spacing: normal !important;
+  text-shadow: none !important;
+  font-variant-numeric: tabular-nums !important;
+  font-variant-east-asian: full-width !important;
+  font-feature-settings: "tnum" 1, "halt" 0, "chws" 0, "pwid" 0 !important;
+}
+
+.theme-dark .markdown-rendered,
+.theme-dark .markdown-source-view.mod-cm6 .cm-content,
+.theme-dark .markdown-source-view.mod-cm6 .cm-line {
+  text-shadow: none !important;
+}
+
+/* CodeMirror 6 实时预览段落留白 (Notion Block 级别呼吸停顿) */
+.cm-line {
+  line-height: var(--line-height-normal) !important;
+  padding-bottom: 0.82em !important;
+}
+
+/* 特殊行（代码块、表格、空行）排除段落底留白，杜绝排版断裂 */
+.cm-line.HyperMD-codeblock,
+.cm-line:has(.cm-table-widget),
+.cm-line:empty {
+  padding-bottom: 0 !important;
+}
+
+/* 列表行采用适度呼吸留白 */
+.cm-line.HyperMD-list-line {
+  padding-bottom: 0.35em !important;
+}
+
+/* 阅读视图段落上下间距 */
+.markdown-rendered p,
+.markdown-rendered li {
+  line-height: var(--line-height-normal) !important;
+  margin-block: 0 var(--p-spacing, 1.05em) !important;
+}
+
+/* 标题体系继承西文无衬线 + 宋体 */
+.inline-title,
+.markdown-rendered h1, .cm-header-1,
+.markdown-rendered h2, .cm-header-2,
+.markdown-rendered h3, .cm-header-3,
+.markdown-rendered h4, .cm-header-4,
+.markdown-rendered h5, .cm-header-5,
+.markdown-rendered h6, .cm-header-6,
+.cm-line.HyperMD-header {
+  font-family: var(--ag-font-notion-serif) !important;
+  letter-spacing: -0.015em !important;
+  text-shadow: none !important;
+  font-variant-numeric: tabular-nums !important;
+  font-variant-east-asian: full-width !important;
+  font-feature-settings: "tnum" 1, "halt" 0, "chws" 0 !important;
+}
+
+/* 引用块文字样式 */
+.markdown-rendered blockquote,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote {
+  font-family: var(--ag-font-notion-serif) !important;
+  line-height: var(--line-height-normal) !important;
+  text-shadow: none !important;
+  font-variant-numeric: tabular-nums !important;
+  font-variant-east-asian: full-width !important;
+}
+
+/* Callout 标题与内容 */
+.callout,
+.callout-title,
+.callout-content {
+  font-family: var(--ag-font-notion-serif) !important;
+  font-variant-numeric: tabular-nums !important;
+  font-variant-east-asian: full-width !important;
+}
+
+/* 悬浮预览卡保持固定紧凑的高信息密度排版，不随正文行距/段距膨胀 */
+body .popover.hover-popover .markdown-rendered {
+  font-size: 13px !important;
+  line-height: 1.52 !important;
+  margin: 0 !important;
+}
+body .popover.hover-popover .markdown-rendered p,
+body .popover.hover-popover .markdown-rendered li,
+body .popover.hover-popover .markdown-source-view.mod-cm6 .cm-content,
+body .popover.hover-popover .markdown-source-view.mod-cm6 .cm-line,
+body .popover.hover-popover .markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote {
+  font-size: 13px !important;
+  line-height: 1.52 !important;
+  margin-block: 0 0.45em !important;
+  padding-bottom: 0 !important;
+}

@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.zip
+fonts/
+*.ttf
+*.ttc
+*.otf
+sync.local.sh
