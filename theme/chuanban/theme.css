@@ -356,12 +356,30 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* 顶部 macOS 窗口与红黄绿灯区域 */
-.titlebar {
+/* 顶部窗口与红黄绿灯区域（兼容 Windows / Linux / macOS 隐藏标题栏模式） */
+body:not(.is-hidden-frameless) .titlebar,
+body.is-hidden-frameless.starter .titlebar,
+body.is-hidden-frameless.is-popout-modal .titlebar {
   background-color: var(--titlebar-background) !important;
   border-bottom: 1px solid var(--titlebar-border-color) !important;
   font-family: var(--font-interface);
   height: 38px;
+}
+body.is-hidden-frameless:not(.starter, .is-popout-modal) .titlebar {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  height: calc(var(--header-height) - 1px) !important;
+  pointer-events: none !important;
+}
+body.is-hidden-frameless:not(.starter, .is-popout-modal) .titlebar-button-container {
+  pointer-events: auto !important;
+  height: calc(var(--header-height) - 1px) !important;
+}
+body.is-hidden-frameless:not(.is-fullscreen) .titlebar-button-container.mod-right {
+  background-color: var(--titlebar-background) !important;
 }
 .titlebar-text {
   font-size: 13px;
@@ -400,10 +418,27 @@ body {
 .mod-root .workspace-tab-header-container {
   background-color: var(--tab-container-background) !important;
   border-bottom: 1px solid var(--tab-divider-color) !important;
-  padding: 4px 8px 0 8px !important;
+  padding-top: 4px !important;
+  padding-bottom: 0 !important;
+  padding-left: 8px;
+  padding-right: 8px;
   height: 38px !important;
   min-height: 38px !important;
   box-sizing: border-box !important;
+}
+
+/* 保留 Windows / Linux / macOS 隐藏标题栏模式下左上角（红绿灯/图标）与右上角（- □ × 窗口按钮）安全预留区 */
+.is-hidden-frameless:not(.is-fullscreen) .workspace-tabs.mod-top-left-space .workspace-tab-header-container {
+  padding-left: calc(10px + var(--frame-left-space, 0px)) !important;
+}
+.is-hidden-frameless:not(.is-fullscreen) .workspace-tabs.mod-top-right-space .workspace-tab-header-container {
+  padding-right: calc(10px + var(--frame-right-space, 0px)) !important;
+}
+.mod-macos.is-hidden-frameless:not(.is-popout-window, .is-mobile):not(.mod-rtl) .workspace .workspace-tabs.mod-top-right-space .workspace-tab-header-container {
+  padding-right: calc(38px + var(--frame-right-space, 0px)) !important;
+}
+.mod-macos.is-hidden-frameless:not(.is-popout-window, .is-mobile).mod-rtl .workspace .workspace-tabs.mod-top-left-space .workspace-tab-header-container {
+  padding-left: calc(38px + var(--frame-left-space, 0px)) !important;
 }
 
 .mod-root .workspace-tab-header {
@@ -462,7 +497,10 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.09) !important;
   height: 42px !important;
   min-height: 42px !important;
-  padding: 0 10px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 10px;
+  padding-right: 10px;
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
@@ -474,8 +512,18 @@ body {
   border-bottom-color: rgba(255, 255, 255, 0.09) !important;
 }
 
+.workspace-sidedock .workspace-tab-header-container-inner,
+.mod-left-split .workspace-tab-header-container-inner,
+.mod-right-split .workspace-tab-header-container-inner {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100% !important;
+  align-items: center !important;
+}
+
 .workspace-sidedock .workspace-tab-header-tab-list,
-.mod-left-split .workspace-tab-header-tab-list {
+.mod-left-split .workspace-tab-header-tab-list,
+.mod-right-split .workspace-tab-header-tab-list {
   display: flex !important;
   align-items: center !important;
   gap: 3px !important;
@@ -529,7 +577,9 @@ body {
 .workspace-sidedock .workspace-tab-header-inner,
 .workspace-sidedock .workspace-tab-header-inner-icon,
 .mod-left-split .workspace-tab-header-inner,
-.mod-left-split .workspace-tab-header-inner-icon {
+.mod-left-split .workspace-tab-header-inner-icon,
+.mod-right-split .workspace-tab-header-inner,
+.mod-right-split .workspace-tab-header-inner-icon {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -537,10 +587,12 @@ body {
   margin: 0 !important;
   height: 100% !important;
   width: 100% !important;
+  overflow: visible !important;
 }
 
 .workspace-sidedock .workspace-tab-header-inner-icon svg,
-.mod-left-split .workspace-tab-header-inner-icon svg {
+.mod-left-split .workspace-tab-header-inner-icon svg,
+.mod-right-split .workspace-tab-header-inner-icon svg {
   width: 16px !important;
   height: 16px !important;
 }
